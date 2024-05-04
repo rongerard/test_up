@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AJAX Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h2>GET Request Example</h2>
+    <button onclick="getRequest()">Make GET Request</button>
+    <p id="get-response"></p>
+
+    <h2>POST Request Example</h2>
+    <input type="text" id="post-data" placeholder="Enter data to post">
+    <button onclick="postRequest()">Make POST Request</button>
+    <p id="post-response"></p>
+
+    <script>
+        function getRequest() {
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/posts/1', // Example URL
+                type: 'GET',
+                success: function (response) {
+                    $('#get-response').text(JSON.stringify(response));
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function postRequest() {
+            var postData = $('#post-data').val();
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/posts', // Example URL
+                type: 'POST',
+                data: JSON.stringify({ data: postData }),
+                contentType: 'application/json',
+                success: function (response) {
+                    $('#post-response').text(JSON.stringify(response));
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

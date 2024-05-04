@@ -1,0 +1,212 @@
+body {
+    margin: 0 auto;
+    padding: 0;
+    background-color: #36566C;
+    /* Set background color */
+}
+
+.periodic-image {
+    border-top-left-radius: 10px;
+    /* Adjust as needed */
+    border-bottom-left-radius: 10px;
+    /* Adjust as needed */
+}
+
+.container-1 {
+
+
+    display: flex;
+    justify-content: center;
+
+
+
+}
+
+/*
+ Header
+*/
+.header {
+    text-align: center;
+    margin-bottom: 150px;
+}
+
+.header h1 {
+    font-size: 40px;
+    color: white;
+    /* Pink color */
+    border-bottom: 2px dashed white;
+    /* Dashed border */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-family: 'Comic Sans MS', cursive;
+    /* Fun font */
+    text-shadow: 0px 3px 0px rgba(139, 0, 0, 0.7);
+    /* Text shadow */
+}
+
+/*
+ Tabs
+*/
+
+.tabs ul {
+    text-align: center;
+    margin-left: -28px;
+}
+
+.tabs ul li {
+    display: inline-block;
+    margin: 5px;
+
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #494f57;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.tabs ul li.active {
+    border-bottom: 2px solid #494f57;
+}
+
+.left {
+    background-color: white;
+    height: 430px;
+    width: 400px;
+    border-top-right-radius: 10px;
+    /* Adjust as needed */
+    border-bottom-right-radius: 10px;
+    /* Adjust as needed */
+}
+
+
+/*
+ Login Form
+*/
+
+.login-form {
+
+    width: 300px;
+    margin-left: 37px;
+
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.login-form button {
+    width: 108%;
+    padding: 10px;
+    background-color: #36566C;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+}
+
+
+.login-form button:hover {
+    opacity: 0.8;
+}
+
+/*
+ Register Form
+*/
+
+.register-form {
+    width: 300px;
+    margin-left: 37px;
+
+
+}
+
+.register-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.register-form button {
+    width: 108%;
+    padding: 10px;
+    background-color: #36566C;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+}
+
+
+.register-form button:hover {
+    opacity: 0.8;
+}
+
+
+/*
+Modal Form
+*/
+
+
+
+/* Modal */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black with opacity */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    /* Add shadow */
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

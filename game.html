@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort A Element</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="style.css">
+
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div id="header">
+        <img id="logo" src="img/sort a element logo.png">
+    </div>
+    <div id="desc">Sort A Element is a sorting game. Sort elements from the periodic table to each correct category!
+    </div>
+    </div>
+
+    <div id="life-container">Lives: <span id="lives"></span> <span id="heart-indicator">❤️❤️❤️❤️❤️</span></div>
+
+    <div id="container">
+
+        <div id="categories-container">
+
+            <div class="category">
+                <div class="category-label">Metals</div>
+                <div class="category-box droppable" id="droppable-metal"></div>
+            </div>
+            <div class="category">
+                <div class="category-label">Non-Metals</div>
+                <div class="category-box droppable" id="droppable-nmetal"></div>
+            </div>
+            <div class="category">
+                <div class="category-label">Noble Gases</div>
+                <div class="category-box droppable" id="droppable-gas"></div>
+            </div>
+            <div class="category">
+                <div class="category-label">Metalloids</div>
+                <div class="category-box droppable" id="droppable-metalloids"></div>
+            </div>
+        </div>
+        <div id="elements-container">
+            <!-- Elements will be dynamically added here -->
+        </div>
+
+
+
+        <div id="btn-container">
+            <button id="reset-btn">Reset Game</button> <!-- Added reset button -->
+            <button id="next-level-btn" disabled>Next Level</button>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script>
+
+        var levels = [
+            [
+                { element: "Au", category: "metal" },
+                { element: "H", category: "nmetal" }
+            ],
+            [{ element: "He", category: "gas" },
+            { element: "K", category: "metal" }
+            ],
+            [
+                { element: "B", category: "metalloids" },
+                { element: "Xe", category: "gas" },
+                { element: "Si", category: "metalloids" }
+            ],
+            [
+                { element: "Ge", category: "metalloids" },
+                { element: "Rn", category: "gas" },
+                { element: "Ar", category: "nmetal" },
+
+            ],
+            [
+                { element: "As", category: "metalloids" },
+                { element: "Rb", category: "metal" },
+                { element: "N", category: "nmetal" },
+                { element: "Kr", category: "gas" }
+            ]
+            // Add more levels as needed
+        ];
+
+        var currentLevel = 0;
+        var totalLives = 5; // Define the total number of lives as a number
+        var currentLives = totalLives;
+
+        $(function () {
+            loadLevel(levels[currentLevel]);
+
+            $(".element").draggable({
+                revert: function (dropped) {
+                    if (!dropped) {
+                        // If not dropped, revert the element to its starting position
+                        $(this).removeClass("droppable-highlight"); // Remove highlight class if present
+                        return true;
+                    } else {
+                        // If dropped, keep it in the droppable if it's correct
+                        return !$(this).hasClass("droppable-highlight");
+                    }
+                },
+                start: function (event, ui) {
+                    $(".ui-droppable").removeClass("ui-state-hover");
+                }
+            });
+
+            $(".droppable").droppable({
+                drop: function (event, ui) {
+                    var category = $(this).attr("id").replace("droppable-", "");
+                    var elementCategory = ui.draggable.data("category");
+                    if (category === elementCategory) {
+                        $(ui.draggable).addClass("droppable-highlight");
+                    } else {
+                        $(this).addClass("droppable-wrong");
+                        deductLife();
+                    }
+                    enableNextLevelButton(); // Check if all elements are correctly placed
+                },
+                out: function (event, ui) {
+                    $(this).removeClass("droppable-wrong");
+                    $(this).removeClass("droppable-highlight"); // Remove highlight from the droppable
+                    $(ui.draggable).removeClass("droppable-highlight"); // Remove highlight from the draggable
+                    enableNextLevelButton(); // Check if all elements are correctly placed
+                }
+            });
+
+
+
+            $("#next-level-btn").click(function () {
+                if (currentLevel < levels.length - 1) {
+                    currentLevel++;
+                    $("#elements-container").empty(); // Reset elements
+                    loadLevel(levels[currentLevel]);
+                } else {
+                    alert("Congratulations! You have completed all levels.");
+                }
+            });
+
+            // Reset button click event handler
+            $("#reset-btn").click(function () {
+                resetGame();
+            });
+
+            function checkAllPlaced() {
+                var allPlaced = true;
+                $(".element").each(function () {
+                    if (!$(this).hasClass("droppable-highlight")) {
+                        allPlaced = false;
+                        return false; // Exit the loop early if an element is not correctly placed
+                    }
+                });
+                return allPlaced;
+            }
+
+            function enableNextLevelButton() {
+                if (checkAllPlaced()) {
+                    $("#next-level-btn").prop("disabled", false);
+                } else {
+                    $("#next-level-btn").prop("disabled", true);
+                }
+            }
+        });
+
+        function loadLevel(elements) {
+            elements.forEach(function (item) {
+                var elementDiv = $('<div class="element draggable">' + item.element + '</div>');
+                elementDiv.attr('data-category', item.category); // Add data-category attribute
+                $("#elements-container").append(elementDiv);
+            });
+            // Make newly added elements draggable
+            $(".draggable").draggable({
+                revert: function (dropped) {
+                    if (!dropped) {
+                        // If not dropped, revert the element to its starting position
+                        $(this).removeClass("droppable-highlight"); // Remove highlight class if present
+                        return true;
+                    } else {
+                        // If dropped, keep it in the droppable if it's correct
+                        return !$(this).hasClass("droppable-highlight");
+                    }
+                },
+                start: function (event, ui) {
+                    $(".ui-droppable").removeClass("ui-state-hover");
+                }
+            });
+        }
+
+
+        function deductLife() {
+            currentLives--; // Decrement currentLives as a number
+            $("#heart-indicator").text("❤️".repeat(currentLives)); // Update the emoji hearts
+            if (currentLives === 0) {
+                gameOver();
+            }
+        }
+
+        function resetGame() {
+            currentLevel = 0;
+            currentLives = totalLives; // Reset lives to the total number of lives
+            $("#heart-indicator").text("❤️".repeat(currentLives)); // Update the heart indicator
+            $("#elements-container").empty();
+            loadLevel(levels[currentLevel]);
+            $("#next-level-btn").prop("disabled", false); // Enable next level button
+            $(".element").draggable("enable"); // Enable draggable elements
+        }
+
+        function gameOver() {
+            alert("Oops! Game over! You've run out of lives. Click Reset");
+            $("#next-level-btn").prop("disabled", true); // Disable next level button
+            $(".element").draggable("disable"); // Disable draggable elements
+            // You can add additional logic here for game over actions
+        }
+
+    </script>
+
+</body>
+
+</html>

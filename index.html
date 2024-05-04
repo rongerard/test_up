@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+
+    <!-- Scripts  -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+    <title>Login Form</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1>🌟 Drag and Drop Periodic Table 🌟</h1>
+    </div>
+    <div class="container-1">
+
+
+
+        <div class="periodic-image">
+            <img src="img/periodic.png" alt="Example Image" height="430px" class="periodic-image">
+        </div>
+
+        <div class="left">
+            <div class="tabs">
+                <ul>
+                    <li class="register-li">Register</li>
+                    <li class="login-li">Login</li>
+                </ul>
+
+            </div>
+
+            <div class="login-form">
+                <form id="login-form">
+                    <label for="email"><b>Email</b></label>
+                    <input type="email" placeholder="Enter Email" name="email" id="email" required>
+
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+                    <button type="submit" id="login-btn">Login</button>
+                </form>
+            </div>
+
+
+            <div class="register-form">
+                <form id="register-form" method="POST">
+
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" id="registerUsername" required>
+
+                    <label for="email"><b>Email</b></label>
+                    <input type="email" placeholder="Enter Email" name="email" id="registerEmail" required>
+
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" id="registerPassword" required>
+
+
+                    <button type="submit" id="register-btn">Register</button>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+</body>
+
+</html>
